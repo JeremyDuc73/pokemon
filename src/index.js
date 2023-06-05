@@ -1,7 +1,7 @@
 import kaboom from "kaboom";
 
 kaboom({
-    width: 1280,
+    width: 1180,
     height: 720,
     scale: 1
 });
@@ -22,23 +22,25 @@ go('world')
 
 function loadAssets(){
     loadSprite('dracaufeu', './img/charizard.png')
-    loadSpriteAtlas('./img/characters.png', {
-        'player-down': { x: 0, y: 82, width: 16, height: 16 },
-        'player-up': { x: 16, y: 82, width: 16, height: 16 },
-        'player-side': { x: 0, y: 98, width: 32, height: 16, sliceX: 2, sliceY: 1,
+    loadSprite('florizarre', './img/venusaur.png')
+    loadSprite('tortank', './img/blastoise.png')
+    loadSprite('mewtwo', './img/mewtwo.png')
+    loadSprite('rayquaza', './img/rayquaza.png')
+    loadSpriteAtlas('./img/trainer.png', {
+        'player-down': { x: 0, y: 0, width: 128, height: 64, sliceX: 2, sliceY: 1,
             anims: { 'walk': { from: 0, to: 1, speed: 6 }}
         },
-        'npc': { x: 32, y: 98, width: 16, height: 16 },
-        'cat-mon': { x: 0, y: 16, width: 32, height: 32 },
-        'spider-mon': { x: 32, y: 16, width: 32, height: 32 },
-        'centipede-mon': { x: 64, y: 16, width: 32, height: 32 },
-        'grass-mon': { x: 0, y: 49, width: 32, height: 32 },
-        'mushroom-mon': { x: 32, y: 49, width: 32, height: 32 },
-        'mini-mons': { x: 0, y: 0, width: 128, height: 16, sliceX: 8, sliceY: 1,
-            anims: { 'spider': 1, 'centipede': 2, 'grass': 3 }
-        }
+        'player-up': { x: 0, y: 192, width: 128, height: 64, sliceX: 2, sliceY: 1,
+            anims: { 'walk': { from: 0, to: 1, speed: 6 }}
+        },
+        'player-side': { x: 0, y: 64, width: 128, height: 64, sliceX: 2, sliceY: 1,
+            anims: { 'walk': { from: 0, to: 1, speed: 6 }}
+        },
     })
-    loadSprite('battle-background', './img/battleBackground.png')
+    loadSpriteAtlas('./img/npc.png', {
+        'npc': { x: 0, y: 70, width: 60, height: 70 },
+    })
+    loadSprite('battle-background', './img/battle.png')
     loadSpriteAtlas('./img/tiles.png', {
         'tile': { x: 0, y: 0, width: 128, height: 128, sliceX: 8, sliceY: 8,
             anims: {
@@ -205,24 +207,18 @@ function setWorld(worldState) {
         }
     }
 
-    add([sprite('dracaufeu'), area(), body({isStatic: true}), pos(100,700), scale(1), 'drac'])
+    add([sprite('dracaufeu'), area(), body({isStatic: true}), pos(100,700), scale(1), 'dracaufeu'])
+    add([sprite('florizarre'), area(), body({isStatic: true}), pos(400,300), scale(1), 'florizarre'])
+    add([sprite('tortank'), area(), body({isStatic: true}), pos(100,100), scale(1), 'tortank'])
+    add([sprite('mewtwo'), area(), body({isStatic: true}), pos(900,570), scale(1), 'mewtwo'])
 
-    const spiderMon = add([sprite('mini-mons'), area(), body({isStatic: true}), pos(400,300), scale(4), 'spider'])
-    spiderMon.play('spider')
-    spiderMon.flipX = true
 
-    const centipedeMon = add([sprite('mini-mons'), area(), body({isStatic: true}), pos(100,100), scale(4), 'centipede'])
-    centipedeMon.play('centipede')
-
-    const grassMon = add([sprite('mini-mons'), area(), body({isStatic: true}), pos(900, 570), scale(4), 'grass'])
-    grassMon.play('grass')
-
-    add([ sprite('npc'), scale(4), pos(600,700), area(), body({isStatic: true}), 'npc'])
+    add([ sprite('npc'), scale(1), pos(600,690), area(), body({isStatic: true}), 'npc'])
 
     const player = add([
         sprite('player-down'),
         pos(500,700),
-        scale(4),
+        scale(1),
         area(),
         body(),
         {
@@ -236,11 +232,6 @@ function setWorld(worldState) {
     onUpdate(() => {
         camPos(player.pos)
         tick++
-        if ((isKeyDown('down') || isKeyDown('up'))
-            && tick % 20 === 0
-            && !player.isInDialogue) {
-            player.flipX = !player.flipX
-        }
     })
 
     function setSprite(player, spriteName) {
@@ -252,13 +243,21 @@ function setWorld(worldState) {
 
     onKeyDown('down', () => {
         if (player.isInDialogue) return
-        setSprite(player, 'player-down')
+        player.flipX = false
+        if (player.curAnim() !== 'walk') {
+            setSprite(player, 'player-down')
+            player.play('walk')
+        }
         player.move(0, player.speed)
     })
 
     onKeyDown('up', () => {
         if (player.isInDialogue) return
-        setSprite(player, 'player-up')
+        player.flipX = false
+        if (player.curAnim() !== 'walk') {
+            setSprite(player, 'player-up')
+            player.play('walk')
+        }
         player.move(0, -player.speed)
     })
 
@@ -358,23 +357,23 @@ function setWorld(worldState) {
 
 
 
-    onCollideWithPlayer('drac', player, worldState)
-    onCollideWithPlayer('spider', player, worldState)
-    onCollideWithPlayer('centipede', player, worldState)
-    onCollideWithPlayer('grass', player, worldState)
+    onCollideWithPlayer('dracaufeu', player, worldState)
+    onCollideWithPlayer('florizarre', player, worldState)
+    onCollideWithPlayer('tortank', player, worldState)
+    onCollideWithPlayer('mewtwo', player, worldState)
 }
 
 function setBattle(worldState) {
     add([
         sprite('battle-background'),
-        scale(1.3),
+        scale(5),
         pos(0,0)
     ])
 
     const enemyMon = add([
-        sprite(worldState.enemyName + '-mon'),
-        scale(5),
-        pos(1300,100),
+        sprite(worldState.enemyName),
+        scale(4.5),
+        pos(200,50),
         opacity(1),
         {
             fainted: false
@@ -384,21 +383,22 @@ function setBattle(worldState) {
 
     tween(
         enemyMon.pos.x,
-        1000,
+        750,
         0.3,
         (val) => enemyMon.pos.x = val,
         easings.easeInSine
     )
 
     const playerMon = add([
-        sprite('mushroom-mon'),
-        scale(8),
-        pos(-100, 300),
+        sprite('rayquaza'),
+        scale(6),
+        pos(-100, 270),
         opacity(1),
         {
             fainted: false
         }
     ])
+    playerMon.flipX = true
 
     tween(
         playerMon.pos.x,
@@ -415,7 +415,7 @@ function setBattle(worldState) {
     ])
 
     playerMonHealthBox.add([
-        text('MUSHROOM', {size: 32}),
+        text('RAYQUAZA', {size: 32}),
         color(10,10,10),
         pos(10, 10)
     ])
@@ -432,7 +432,7 @@ function setBattle(worldState) {
         pos(15, 50)
     ])
 
-    tween(playerMonHealthBox.pos.x, 850, 0.3, (val) => playerMonHealthBox.pos.x = val, easings.easeInSine)
+    tween(playerMonHealthBox.pos.x, 750, 0.3, (val) => playerMonHealthBox.pos.x = val, easings.easeInSine)
 
     const enemyMonHealthBox = add([
         rect(400, 100),
@@ -467,7 +467,7 @@ function setBattle(worldState) {
     ])
 
     const content = box.add([
-        text('MUSHROOM is ready to battle!', { size: 42}),
+        text('RAYQUAZA is ready to battle!', { size: 42}),
         color(10,10,10),
         pos(20,20)
     ])
@@ -528,7 +528,7 @@ function setBattle(worldState) {
             if (damageDealt > 150) {
                 content.text = "It's a critical hit!"
             } else {
-                content.text = 'MUSHROOM used tackle.'
+                content.text = 'RAYQUAZA used tackle.'
             }
 
             reduceHealth(enemyMonHealthBar, damageDealt)
@@ -568,7 +568,7 @@ function setBattle(worldState) {
             content.text = worldState.enemyName.toUpperCase() + ' fainted!'
             enemyMon.fainted = true
             setTimeout(() => {
-                content.text = 'MUSHROOM won the battle!'
+                content.text = 'RAYQUAZA won the battle!'
             }, 1000)
             setTimeout(() => {
                 worldState.faintedMons.push(worldState.enemyName)
@@ -578,10 +578,10 @@ function setBattle(worldState) {
 
         if (playerMonHealthBar.width < 0 && !playerMon.fainted) {
             makeMonDrop(playerMon)
-            content.text = 'MUSHROOM fainted!'
+            content.text = 'RAYQUAZA fainted!'
             playerMon.fainted = true
             setTimeout(() => {
-                content.text = 'You rush to get MUSHROOM healed!'
+                content.text = 'You rush to get RAYQUAZA healed!'
             }, 1000)
             setTimeout(() => {
                 worldState.playerPos = vec2(500,700)
