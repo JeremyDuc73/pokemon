@@ -209,7 +209,8 @@ function setWorld(worldState) {
 
     add([sprite('dracaufeu'), area(), body({isStatic: true}), pos(100,700), scale(1), 'dracaufeu'])
     add([sprite('florizarre'), area(), body({isStatic: true}), pos(400,300), scale(1), 'florizarre'])
-    add([sprite('tortank'), area(), body({isStatic: true}), pos(100,100), scale(1), 'tortank'])
+    const tortankSprite = add([sprite('tortank'), area(), body({isStatic: true}), pos(100,100), scale(1), 'tortank'])
+    tortankSprite.flipX = true
     add([sprite('mewtwo'), area(), body({isStatic: true}), pos(900,570), scale(1), 'mewtwo'])
 
 
@@ -379,7 +380,7 @@ function setBattle(worldState) {
             fainted: false
         }
     ])
-    enemyMon.flipX = true
+    enemyMon.flipX = false
 
     tween(
         enemyMon.pos.x,
@@ -392,7 +393,7 @@ function setBattle(worldState) {
     const playerMon = add([
         sprite('rayquaza'),
         scale(6),
-        pos(-100, 270),
+        pos(-60, 230),
         opacity(1),
         {
             fainted: false
@@ -402,7 +403,7 @@ function setBattle(worldState) {
 
     tween(
         playerMon.pos.x,
-        300,
+        110,
         0.3,
         (val) => playerMon.pos.x = val,
         easings.easeInSine
