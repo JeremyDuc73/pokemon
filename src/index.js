@@ -41,30 +41,52 @@ function loadAssets(){
         'npc': { x: 0, y: 70, width: 60, height: 70 },
     })
     loadSprite('battle-background', './img/battle.png')
-    loadSpriteAtlas('./img/tiles.png', {
-        'tile': { x: 0, y: 0, width: 128, height: 128, sliceX: 8, sliceY: 8,
+    loadSpriteAtlas('./img/test.png', {
+        'tile': { x: 0, y: 0, width: 416, height: 224, sliceX: 13, sliceY: 7,
             anims: {
-                'bigtree-pt1': 1,
-                'bigtree-pt2': 2,
-                'bigtree-pt3': 9,
-                'bigtree-pt4': 10,
-                'grass-m': 14,
-                'grass-tl': 17,
-                'grass-tm': 18,
-                'grass-tr': 19,
-                'grass-l': 25,
-                'grass-r': 27,
-                'grass-bl': 33,
-                'grass-mb': 34,
-                'grass-br': 35,
-                'tree-t': 4,
-                'tree-b': 12,
-                'grass-water': 20,
-                'sand-1': 6,
-                'ground-l': 41,
-                'ground-m': 42,
-                'ground-r': 43,
-                'rock-water': 60
+                'grass': 0,
+                'tall-grass': 1,
+                'dirt-tl': 2,
+                'dirt-tm': 3,
+                'dirt-tr': 4,
+                'dirt-ml': 15,
+                'dirt-m': 16,
+                'dirt-mr': 17,
+                'dirt-bl': 28,
+                'dirt-bm': 29,
+                'dirt-br': 30,
+                'water-tl': 5,
+                'water-tm': 6,
+                'water-tr': 7,
+                'water-ml': 18,
+                'water-m': 19,
+                'water-mr': 20,
+                'water-bl': 31,
+                'water-bm': 32,
+                'water-br': 33,
+                'fence-l': 44,
+                'fence-m': 45,
+                'fence-r': 46,
+                'l-tree-full-tl': 59,
+                'l-tree-full-tr': 60,
+                'l-tree-full-ml': 72,
+                'l-tree-full-mr': 73,
+                'l-tree-full-bl': 85,
+                'l-tree-full-br': 86,
+                'r-tree-full-tl': 61,
+                'r-tree-full-tr': 62,
+                'r-tree-full-ml': 74,
+                'r-tree-full-mr': 75,
+                'r-tree-full-bl': 87,
+                'r-tree-full-br': 88,
+                'tree-empty-tl': 63,
+                'tree-empty-tr': 64,
+                'tree-empty-ml': 76,
+                'tree-empty-mr': 77,
+                'tree-empty-bl': 89,
+                'tree-empty-br': 90,
+
+
             }
         }
     })
@@ -89,70 +111,70 @@ function setWorld(worldState) {
 
     const map = [
         addLevel([
-            '                 ',
-            ' cdddddddddddde  ',
-            ' 30000000000002  ',
-            ' 30000000000002  ',
-            ' 30000000000002  ',
-            ' 30030000008889  ',
-            ' 30030000024445  ',
-            ' 300a8888897777  ',
-            ' 30064444457777  ',
-            ' 30000000000002  ',
-            ' 30000000021111  ',
-            ' 3000000002      ',
-            ' 1111111111      ',
-            '      b          ',
-            '     b      b    ',
-            ' b             b '
+            'qsqs11111111111111111111111111111111',
+            'azaz11111111111111111111111111111111',
+            'qsqs11111111111111111111111111111111',
+            'azaz11111111111111111111111111111111',
+            'qsqs11111111111111111111111111111111',
+            'azaz11111111111111111111111111111111',
+            'qsqs11111111111111111111111111111111',
+            'azaz11111111111111111111111111111111',
+            'qsqs11111111111111111111111111111111',
+            'azaz11111111111111111111111111111111',
+            'qsqs11111111111111111111111111111111',
+            'azaz11111111111111111111111111111111',
+            'qsqs11111111111111111111111111111111',
+            'azaz11111111111111111111111111111111',
+            'qsqs11111111111111111111111111111111',
+            'azaz11111111111111111111111111111111',
+            'qsqs11111111111111111111111111111111',
+            'azaz11111111111111111111111111111111',
+            'qsqs11111111111111111111111111111111',
+            'azaz11111111111111111111111111111111',
+            'qsqs11111111111111111111111111111111',
+            'azaz11111111111111111111111111111111',
         ], {
-            tileWidth: 16,
-            tileHeight: 16,
+            tileWidth: 32,
+            tileHeight: 32,
             tiles: {
-                '0': () => makeTile('grass-m'),
-                '1': () => makeTile('grass-water'),
-                '2': () => makeTile('grass-r'),
-                '3': () => makeTile('grass-l'),
-                '4': () => makeTile('ground-m'),
-                '5': () => makeTile('ground-r'),
-                '6': () => makeTile('ground-l'),
-                '7': () => makeTile('sand-1'),
-                '8': () => makeTile('grass-mb'),
-                '9': () => makeTile('grass-br'),
-                'a': () => makeTile('grass-bl'),
-                'b': () => makeTile('rock-water'),
-                'c': () => makeTile('grass-tl'),
-                'd': () => makeTile('grass-tm'),
-                'e': () => makeTile('grass-tr')
+                '1': () => makeTile('grass'),
+                'a': () => makeTile('r-tree-full-tl'),
+                'z': () => makeTile('r-tree-full-tr'),
+                'q': () => makeTile('r-tree-full-ml'),
+                's': () => makeTile('r-tree-full-mr'),
             }
         }),
         addLevel([
-            '      12       ',
-            '      34       ',
-            ' 000    00  12 ',
-            ' 00   00    34 ',
-            ' 0    0        ',
-            '      0  0     ',
-            '           5   ',
-            '           6   ',
-            '     5         ',
-            '     6   0     ',
-            '               ',
-            '               ',
-            '               '
+            '                                    ',
+            '                                    ',
+            '                                    ',
+            '                                    ',
+            '                0000000             ',
+            '              0000000               ',
+            '                00000 000           ',
+            '                000000000000        ',
+            '             0000000000000          ',
+            '                                    ',
+            '                                    ',
+            '                                    ',
+            '                                    ',
+            '                                    ',
+            '                                    ',
+            '                                    ',
+            '                                    ',
+            '                                    ',
+            '                                    ',
+            '                                    ',
+            '                                    ',
+            '                                    ',
         ], {
-            tileWidth: 16,
-            tileHeight: 16,
+            tileWidth: 32,
+            tileHeight: 32,
             tiles: {
-                '0': () => makeTile(),
-                '1': () => makeTile('bigtree-pt1'),
-                '2': () => makeTile('bigtree-pt2'),
-                '3': () => makeTile('bigtree-pt3'),
-                '4': () => makeTile('bigtree-pt4'),
-                '5': () => makeTile('tree-t'),
-                '6': () => makeTile('tree-b'),
-            }
+                '0': () => makeTile('tall-grass'),
+            },
         }),
+
         addLevel([
             ' 00000000000000 ',
             '0     11       0',
@@ -196,10 +218,12 @@ function setWorld(worldState) {
                 ]
             }
         })
+
+
     ]
 
     for (const layer of map) {
-        layer.use(scale(4))
+        layer.use(scale(1))
         for (const tile of layer.children) {
             if (tile.type) {
                 tile.play(tile.type)
@@ -220,6 +244,7 @@ function setWorld(worldState) {
         sprite('player-down'),
         pos(500,700),
         scale(1),
+        z(50),
         area(),
         body(),
         {
@@ -241,7 +266,6 @@ function setWorld(worldState) {
             player.currentSprite = spriteName
         }
     }
-
     onKeyDown('down', () => {
         if (player.isInDialogue) return
         player.flipX = false
