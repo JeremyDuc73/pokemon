@@ -89,10 +89,9 @@ function loadAssets(){
                 'turn-up-from-left': 83,
                 'turn-left-from-down': 57,
                 'turn-right-from-down': 55
-
-
             }
-        }
+        },
+        'emptytree-tl': {x: 352, y: 128, width: 32, height: 32}
     })
 }
 
@@ -127,14 +126,14 @@ function setWorld(worldState) {
             'qsqsqsqs111111fgh11111111111111111111111qsqsqsqs',
             'azazazaz111111fgh11111111111111111111111azazazaz',
             'qsqsqsqs111111fgh11111111111111111111111qsqsqsqs',
-            'azazazaz111111fgdttttttty111111111111111azazazaz',
-            'qsqsqsqs111111fgggggggggh111111111111111qsqsqsqs',
-            'azazazaz111111vbbbbbbbegh111111111111111azazazaz',
+            'azazazaz111111fgdttttttttttttttttttttty1azazazaz',
+            'qsqsqsqs111111fgggggggggggggggggggggggh1qsqsqsqs',
+            'azazazaz111111vbbbbbbbegcbbbbbbbbbbbbbn1azazazaz',
             'qsqsqsqs11111111111111fgh111111111111111qsqsqsqs',
-            'azazazaz11111111111111fgh111111111111111azazazaz',
-            'qsqsqsqs11111111111111fgh111111111111111qsqsqsqs',
-            'azazazaz11111111111111fgh111111111111111azazazaz',
-            'qsqsqsqs11111111111111fgh111111111111111qsqsqsqs',
+            'azazazaz11111111111111fgh1AZZZE111111111azazazaz',
+            'qsqsqsqs11111111111111fgh1QSSSD111111111qsqsqsqs',
+            'azazazaz11111111111111fgh1QSSSD111111111azazazaz',
+            'qsqsqsqs11111111111111fgh1WXXXC111111111qsqsqsqs',
             'azazazaz11111111111111vbn111111111111111azazazaz',
             'qsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqs',
             'azazazazazazazazazazazazazazazazazazazazazazazaz',
@@ -161,6 +160,15 @@ function setWorld(worldState) {
                 'c': () => makeTile('turn-right-from-down'),
                 'd': () => makeTile('turn-up-from-right'),
                 'x': () => makeTile('turn-up-from-left'),
+                'A': () => makeTile('water-tl'),
+                'Z': () => makeTile('water-tm'),
+                'E': () => makeTile('water-tr'),
+                'Q': () => makeTile('water-ml'),
+                'S': () => makeTile('water-m'),
+                'D': () => makeTile('water-mr'),
+                'W': () => makeTile('water-bl'),
+                'X': () => makeTile('water-bm'),
+                'C': () => makeTile('water-br'),
             }
         }),
         addLevel([
@@ -190,8 +198,8 @@ function setWorld(worldState) {
             tileWidth: 32,
             tileHeight: 32,
             tiles: {
-                '8': () => makeTile('tree-empty-tr'),
-                '9': () => makeTile('tree-empty-tl'),
+                '8': () => makeTile('tree-empty-tr', 100),
+                '9': () => makeTile('tree-empty-tl', 100),
             },
         }),
 
@@ -211,11 +219,11 @@ function setWorld(worldState) {
             '       p                                p       ',
             '       p                                p       ',
             '       p                                p       ',
+            '       p                  ooooo         p       ',
+            '       p                  ooooo         p       ',
+            '       p                  ooooo         p       ',
+            '       p                  ooooo         p       ',
             '       p                                p       ',
-            '       p                                p       ',
-            '       p                                p       ',
-            '       p                                p       ',
-            '       p98989898989898989898989898989898p       ',
             '        pppppppppppppppppppppppppppppppp        ',
             '                                                ',
         ], {
@@ -224,6 +232,10 @@ function setWorld(worldState) {
             tiles: {
                 'p': () => [
                     area({shape: new Rect(vec2(0), 32, 32)}),
+                    body({isStatic: true})
+                ],
+                'o': () => [
+                    area({shape: new Rect(vec2(0, -15), 26, 32)}),
                     body({isStatic: true})
                 ]
             }
@@ -246,7 +258,7 @@ function setWorld(worldState) {
     const tortankSprite = add([sprite('tortank'), area(), body({isStatic: true}), pos(100,100), scale(1), 'tortank'])
     tortankSprite.flipX = true
     add([sprite('mewtwo'), area(), body({isStatic: true}), pos(900,570), scale(1), 'mewtwo'])
-
+    add([sprite('emptytree-tl'),pos(800, 500), z(100)])
 
     add([ sprite('npc'), scale(1), pos(600,690), area(), body({isStatic: true}), 'npc'])
 
@@ -255,7 +267,7 @@ function setWorld(worldState) {
         sprite('player-down'),
         pos(490,360),
         scale(1),
-        area(),
+        area({shape: new Rect(vec2(0), 32, 32)}),
         body(),
         {
             currentSprite: 'player-down',
