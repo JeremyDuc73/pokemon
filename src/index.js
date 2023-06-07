@@ -1,12 +1,12 @@
 import kaboom from "kaboom";
 
 kaboom({
-    width: 1180,
+    width: 980,
     height: 720,
     scale: 1
 });
 
-setBackground(Color.fromHex('#36A6E0'))
+setBackground(Color.fromHex('#000000'))
 
 loadAssets()
 
@@ -26,15 +26,15 @@ function loadAssets(){
     loadSprite('tortank', './img/blastoise.png')
     loadSprite('mewtwo', './img/mewtwo.png')
     loadSprite('rayquaza', './img/rayquaza.png')
-    loadSpriteAtlas('./img/trainer.png', {
-        'player-down': { x: 0, y: 0, width: 128, height: 64, sliceX: 2, sliceY: 1,
-            anims: { 'walk': { from: 0, to: 1, speed: 6 }}
+    loadSpriteAtlas('./img/coucou.png', {
+        'player-down': { x: 0, y: 0, width: 128, height: 48, sliceX: 4, sliceY: 1,
+            anims: { 'walk': { from: 0, to: 3, speed: 5 }}
         },
-        'player-up': { x: 0, y: 192, width: 128, height: 64, sliceX: 2, sliceY: 1,
-            anims: { 'walk': { from: 0, to: 1, speed: 6 }}
+        'player-up': { x: 0, y: 144, width: 128, height: 48, sliceX: 4, sliceY: 1,
+            anims: { 'walk': { from: 0, to: 3, speed: 5 }}
         },
-        'player-side': { x: 0, y: 64, width: 128, height: 64, sliceX: 2, sliceY: 1,
-            anims: { 'walk': { from: 0, to: 1, speed: 6 }}
+        'player-side': { x: 0, y: 48, width: 128, height: 48, sliceX: 4, sliceY: 1,
+            anims: { 'walk': { from: 0, to: 3, speed: 5 }}
         },
     })
     loadSpriteAtlas('./img/npc.png', {
@@ -85,6 +85,10 @@ function loadAssets(){
                 'tree-empty-mr': 77,
                 'tree-empty-bl': 89,
                 'tree-empty-br': 90,
+                'turn-up-from-right': 81,
+                'turn-up-from-left': 83,
+                'turn-left-from-down': 57,
+                'turn-right-from-down': 55
 
 
             }
@@ -102,6 +106,7 @@ function loadAssets(){
 
 
 function setWorld(worldState) {
+    camScale(1.5)
     function makeTile(type) {
         return [
             sprite('tile'),
@@ -111,109 +116,114 @@ function setWorld(worldState) {
 
     const map = [
         addLevel([
-            'qsqs11111111111111111111111111111111',
-            'azaz11111111111111111111111111111111',
-            'qsqs11111111111111111111111111111111',
-            'azaz11111111111111111111111111111111',
-            'qsqs11111111111111111111111111111111',
-            'azaz11111111111111111111111111111111',
-            'qsqs11111111111111111111111111111111',
-            'azaz11111111111111111111111111111111',
-            'qsqs11111111111111111111111111111111',
-            'azaz11111111111111111111111111111111',
-            'qsqs11111111111111111111111111111111',
-            'azaz11111111111111111111111111111111',
-            'qsqs11111111111111111111111111111111',
-            'azaz11111111111111111111111111111111',
-            'qsqs11111111111111111111111111111111',
-            'azaz11111111111111111111111111111111',
-            'qsqs11111111111111111111111111111111',
-            'azaz11111111111111111111111111111111',
-            'qsqs11111111111111111111111111111111',
-            'azaz11111111111111111111111111111111',
-            'qsqs11111111111111111111111111111111',
-            'azaz11111111111111111111111111111111',
-        ], {
-            tileWidth: 32,
-            tileHeight: 32,
-            tiles: {
-                '1': () => makeTile('grass'),
-                'a': () => makeTile('r-tree-full-tl'),
-                'z': () => makeTile('r-tree-full-tr'),
-                'q': () => makeTile('r-tree-full-ml'),
-                's': () => makeTile('r-tree-full-mr'),
-            }
-        }),
-        addLevel([
-            '                                    ',
-            '                                    ',
-            '                                    ',
-            '                                    ',
-            '                0000000             ',
-            '              0000000               ',
-            '                00000 000           ',
-            '                000000000000        ',
-            '             0000000000000          ',
-            '                                    ',
-            '                                    ',
-            '                                    ',
-            '                                    ',
-            '                                    ',
-            '                                    ',
-            '                                    ',
-            '                                    ',
-            '                                    ',
-            '                                    ',
-            '                                    ',
-            '                                    ',
-            '                                    ',
+            'qsqsqsqs1111111111111111rty1111111111111qsqsqsqs',
+            'azazazaz1111111111111111fgh1111111111111azazazaz',
+            'qsqsqsqs1111111111111111fgh1111111111111qsqsqsqs',
+            'azazazaz1111111111111111fgh1111111111111azazazaz',
+            'qsqsqsqs1111111111111111fgh1111111111111qsqsqsqs',
+            'azazazaz111111rtttttttttxgh1111111111111azazazaz',
+            'qsqsqsqs111111fgggggggggggh1111111111111qsqsqsqs',
+            'azazazaz111111fgcbbbbbbbbbn1111111111111azazazaz',
+            'qsqsqsqs111111fgh11111111111111111111111qsqsqsqs',
+            'azazazaz111111fgh11111111111111111111111azazazaz',
+            'qsqsqsqs111111fgh11111111111111111111111qsqsqsqs',
+            'azazazaz111111fgdttttttty111111111111111azazazaz',
+            'qsqsqsqs111111fgggggggggh111111111111111qsqsqsqs',
+            'azazazaz111111vbbbbbbbegh111111111111111azazazaz',
+            'qsqsqsqs11111111111111fgh111111111111111qsqsqsqs',
+            'azazazaz11111111111111fgh111111111111111azazazaz',
+            'qsqsqsqs11111111111111fgh111111111111111qsqsqsqs',
+            'azazazaz11111111111111fgh111111111111111azazazaz',
+            'qsqsqsqs11111111111111fgh111111111111111qsqsqsqs',
+            'azazazaz11111111111111vbn111111111111111azazazaz',
+            'qsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqs',
+            'azazazazazazazazazazazazazazazazazazazazazazazaz',
         ], {
             tileWidth: 32,
             tileHeight: 32,
             tiles: {
                 '0': () => makeTile('tall-grass'),
+                '1': () => makeTile('grass'),
+                'a': () => makeTile('r-tree-full-tl'),
+                'z': () => makeTile('r-tree-full-tr'),
+                'q': () => makeTile('r-tree-full-ml'),
+                's': () => makeTile('r-tree-full-mr'),
+                'r': () => makeTile('dirt-tl'),
+                't': () => makeTile('dirt-tm'),
+                'y': () => makeTile('dirt-tr'),
+                'f': () => makeTile('dirt-ml'),
+                'g': () => makeTile('dirt-m'),
+                'h': () => makeTile('dirt-mr'),
+                'v': () => makeTile('dirt-bl'),
+                'b': () => makeTile('dirt-bm'),
+                'n': () => makeTile('dirt-br'),
+                'e': () => makeTile('turn-left-from-down'),
+                'c': () => makeTile('turn-right-from-down'),
+                'd': () => makeTile('turn-up-from-right'),
+                'x': () => makeTile('turn-up-from-left'),
+            }
+        }),
+        addLevel([
+            '                                                ',
+            '                                                ',
+            '                                                ',
+            '                                                ',
+            '                                                ',
+            '                                                ',
+            '                                                ',
+            '                                                ',
+            '                                                ',
+            '                                                ',
+            '                                                ',
+            '                                                ',
+            '                                                ',
+            '                                                ',
+            '                                                ',
+            '                                                ',
+            '                                                ',
+            '                                                ',
+            '                                                ',
+            '        98989898989898989898989898989898        ',
+            '                                                ',
+            '                                                ',
+        ], {
+            tileWidth: 32,
+            tileHeight: 32,
+            tiles: {
+                '8': () => makeTile('tree-empty-tr'),
+                '9': () => makeTile('tree-empty-tl'),
             },
         }),
 
         addLevel([
-            ' 00000000000000 ',
-            '0     11       0',
-            '0           11 0',
-            '0           11 0',
-            '0              0',
-            '0   2          0',
-            '0   2      3333 ',
-            '0   2      0   0',
-            '0   3333333    0',
-            '0    0         0',
-            '0          0000 ',
-            '0          0    ',
-            ' 0000000000     ',
-            '                '
+            '                                                ',
+            '                                                ',
+            '                                                ',
+            '                                                ',
+            '       p                                p       ',
+            '       p                                p       ',
+            '       p                                p       ',
+            '       p                                p       ',
+            '       p                                p       ',
+            '       p                                p       ',
+            '       p                                p       ',
+            '       p                                p       ',
+            '       p                                p       ',
+            '       p                                p       ',
+            '       p                                p       ',
+            '       p                                p       ',
+            '       p                                p       ',
+            '       p                                p       ',
+            '       p                                p       ',
+            '       p98989898989898989898989898989898p       ',
+            '        pppppppppppppppppppppppppppppppp        ',
+            '                                                ',
         ], {
-            tileWidth: 16,
-            tileHeight: 16,
+            tileWidth: 32,
+            tileHeight: 32,
             tiles: {
-                '0': () => [
-                    area({shape: new Rect(vec2(0), 16, 16)}),
-                    body({isStatic: true})
-                ],
-                '1': () => [
-                    area({
-                        shape: new Rect(vec2(0), 8, 8),
-                        offset: vec2(4, 4)
-                    }),
-                    body({isStatic: true})
-                ],
-                '2': () => [
-                    area({shape: new Rect(vec2(0), 2, 16)}),
-                    body({isStatic: true})
-                ],
-                '3': () => [
-                    area({
-                        shape: new Rect(vec2(0), 16, 20),
-                        offset: vec2(0, -4)
-                    }),
+                'p': () => [
+                    area({shape: new Rect(vec2(0), 32, 32)}),
                     body({isStatic: true})
                 ]
             }
@@ -240,11 +250,11 @@ function setWorld(worldState) {
 
     add([ sprite('npc'), scale(1), pos(600,690), area(), body({isStatic: true}), 'npc'])
 
+
     const player = add([
         sprite('player-down'),
-        pos(500,700),
+        pos(490,360),
         scale(1),
-        z(50),
         area(),
         body(),
         {
@@ -266,6 +276,7 @@ function setWorld(worldState) {
             player.currentSprite = spriteName
         }
     }
+
     onKeyDown('down', () => {
         if (player.isInDialogue) return
         player.flipX = false
@@ -273,7 +284,7 @@ function setWorld(worldState) {
             setSprite(player, 'player-down')
             player.play('walk')
         }
-        player.move(0, player.speed)
+        player.move(0, 100)
     })
 
     onKeyDown('up', () => {
@@ -283,7 +294,7 @@ function setWorld(worldState) {
             setSprite(player, 'player-up')
             player.play('walk')
         }
-        player.move(0, -player.speed)
+        player.move(0, -100)
     })
 
     onKeyDown('left', () => {
@@ -293,7 +304,7 @@ function setWorld(worldState) {
             setSprite(player, 'player-side')
             player.play('walk')
         }
-        player.move(-player.speed, 0)
+        player.move(-100, 0)
 
     })
 
@@ -304,9 +315,16 @@ function setWorld(worldState) {
             setSprite(player, 'player-side')
             player.play('walk')
         }
-        player.move(player.speed, 0)
+        player.move(100, 0)
     })
 
+    onKeyRelease('up', () => {
+        player.stop()
+    })
+
+    onKeyRelease('down', () => {
+        player.stop()
+    })
 
     onKeyRelease('left', () => {
         player.stop()
