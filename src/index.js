@@ -90,8 +90,7 @@ function loadAssets(){
                 'turn-left-from-down': 57,
                 'turn-right-from-down': 55
             }
-        },
-        'emptytree-tl': {x: 352, y: 128, width: 32, height: 32}
+        }
     })
 }
 
@@ -258,7 +257,6 @@ function setWorld(worldState) {
     const tortankSprite = add([sprite('tortank'), area(), body({isStatic: true}), pos(100,100), scale(1), 'tortank'])
     tortankSprite.flipX = true
     add([sprite('mewtwo'), area(), body({isStatic: true}), pos(900,570), scale(1), 'mewtwo'])
-    add([sprite('emptytree-tl'),pos(800, 500), z(100)])
 
     add([ sprite('npc'), scale(1), pos(600,690), area(), body({isStatic: true}), 'npc'])
 
