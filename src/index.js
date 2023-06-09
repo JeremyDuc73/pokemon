@@ -1,8 +1,6 @@
 import kaboom from "kaboom";
 
 kaboom({
-    width: 980,
-    height: 720,
     scale: 1
 });
 
@@ -22,9 +20,13 @@ go('world')
 
 function loadAssets(){
     loadSprite('maison', "./img/maison.png")
+    loadSprite('zekromwild', './img/zekromwild.png')
     loadSprite('zekrom', './img/zekrom.png')
+    loadSprite('arceuswild', './img/arceuswild.png')
     loadSprite('arceus', './img/arceus.png')
+    loadSprite('kyuremwild', './img/kyuremwild.png')
     loadSprite('kyurem', './img/kyurem.png')
+    loadSprite('giratinawild', './img/giratinawild.png')
     loadSprite('giratina', './img/giratina.png')
     loadSprite('rayquaza', './img/rayquaza.png')
     loadSpriteAtlas('./img/trainer.png', {
@@ -91,7 +93,9 @@ function loadAssets(){
                 'turn-left-from-down': 57,
                 'turn-right-from-down': 55
             }
-        }
+        },
+        'top-tree-left' : {x: 352, y: 128, width: 32, height: 32},
+        'top-tree-right' : {x: 384, y: 128, width: 32, height:32}
     })
 }
 
@@ -105,7 +109,7 @@ function loadAssets(){
 
 
 function setWorld(worldState) {
-    camScale(1.5)
+    camScale(3)
     function makeTile(type) {
         return [
             sprite('tile'),
@@ -207,7 +211,7 @@ function setWorld(worldState) {
             '                                                ',
             '                                                ',
             '                                                ',
-            '        98989898989898989898989898989898        ',
+            '                                                ',
             '                                                ',
             '                                                ',
         ], {
@@ -277,17 +281,27 @@ function setWorld(worldState) {
         }
     }
 
-    add([sprite('giratina'), area(), body({isStatic: true}), pos(1050,350), scale(1), 'giratina'])
-    add([sprite('arceus'), area(), body({isStatic: true}), pos(320,320), scale(1), 'arceus'])
-    add([sprite('zekrom'), area(), body({isStatic: true}), pos(400,720), scale(1), 'zekrom'])
-    add([sprite('kyurem'), area(), body({isStatic: true}), pos(1100,720), scale(1), 'kyurem'])
+    add([sprite('giratinawild'), area(), body({isStatic: true}), pos(1050,350), scale(1), 'giratina'])
+    add([sprite('arceuswild'), area(), body({isStatic: true}), pos(320,320), scale(1), 'arceus'])
+    add([sprite('zekromwild'), area(), body({isStatic: true}), pos(400,720), scale(1), 'zekrom'])
+    add([sprite('kyuremwild'), area(), body({isStatic: true}), pos(1100,720), scale(1), 'kyurem'])
+    let Xlefttrees = 255
+    for (let i = 0; i < 16; i++) {
+        add([sprite('top-tree-left'), pos(Xlefttrees, 832), scale(1), z(10)])
+        Xlefttrees = Xlefttrees + 64
+    }
+    let Xrighttrees = 287
+    for (let i = 0; i < 16; i++) {
+        add([sprite('top-tree-right'), pos(Xrighttrees, 832), scale(1), z(10)])
+        Xrighttrees = Xrighttrees + 64
+    }
 
     add([ sprite('npc'), scale(1), pos(800,220), area({shape: new Rect(vec2(0, -24), 32, 48)}), body({isStatic: true}), 'npc'])
 
 
     const player = add([
         sprite('player-down'),
-        pos(490,360),
+        pos(737,770),
         scale(1),
         area({shape: new Rect(vec2(0), 32, 32)}),
         body(),
@@ -384,21 +398,21 @@ function setWorld(worldState) {
         player.isInDialogue = true
         const dialogueBoxFixedContainer = add([fixed()])
         const dialogueBox = dialogueBoxFixedContainer.add([
-            rect(800, 150),
-            outline(5),
-            pos(100, 550),
+            rect(1000, 150),
+            outline(4),
+            pos(450, 800),
             fixed()
         ])
         const dialogue = "Il te faut battre les 4 pekomon de cet endroit pour être le champion!"
         const content = dialogueBox.add([
             text('',
                 {
-                    size: 30,
-                    width: 700,
+                    size: 42,
+                    width: 900,
                     lineSpacing: 15,
                 }),
             color(10,10,10),
-            pos(40,30),
+            pos(50,30),
             fixed()
         ])
 
@@ -417,7 +431,7 @@ function setWorld(worldState) {
     })
 
     function flashScreen() {
-        const flash = add([rect(1280, 720), color(10,10,10), fixed(), opacity(0)])
+        const flash = add([rect(5000, 5000), color(10,10,10), fixed(), opacity(0), z(50)])
         tween(flash.opacity, 1, 0.5, (val) => flash.opacity = val, easings.easeInBounce)
     }
 
@@ -443,31 +457,52 @@ function setWorld(worldState) {
 function setBattle(worldState) {
     add([
         sprite('battle-background'),
-        scale(2.5),
+        scale(4),
         pos(0,0)
     ])
 
     add([
         sprite('battleplayerbase'),
-        scale(1),
-        pos(0, 500)
+        scale(1.5),
+        pos(80, 645)
+
+    ])
+    add([
+        sprite('battleenemybase'),
+        scale(1.5),
+        pos(1270, 250)
 
     ])
 
+    let myX = 1320
+    let myY = 50
+    let myScale = 2
+    if (worldState.enemyName === 'zekrom'){
+        myScale = 1.8
+        myX = 1300
+        myY = 40
+    }else if (worldState.enemyName === 'kyurem'){
+        myX = 1240
+        myY = 60
+    }else if (worldState.enemyName === 'giratina'){
+        myX = 1300
+    }
     const enemyMon = add([
         sprite(worldState.enemyName),
-        scale(4.5),
-        pos(200,50),
+        scale(myScale),
+
+        pos(200,myY),
         opacity(1),
         {
             fainted: false
         }
     ])
+
     enemyMon.flipX = false
 
     tween(
         enemyMon.pos.x,
-        750,
+        myX,
         0.3,
         (val) => enemyMon.pos.x = val,
         easings.easeInSine
@@ -475,18 +510,18 @@ function setBattle(worldState) {
 
     const playerMon = add([
         sprite('rayquaza'),
-        scale(6),
-        pos(-60, 230),
+        scale(2),
+        pos(100, 420),
         opacity(1),
         {
             fainted: false
         }
     ])
-    playerMon.flipX = true
+    playerMon.flipX = false
 
     tween(
         playerMon.pos.x,
-        110,
+        300,
         0.3,
         (val) => playerMon.pos.x = val,
         easings.easeInSine
@@ -495,7 +530,7 @@ function setBattle(worldState) {
     const playerMonHealthBox = add([
         rect(400, 100),
         outline(4),
-        pos(1000, 400)
+        pos(1000, 600)
     ])
 
     playerMonHealthBox.add([
@@ -516,7 +551,7 @@ function setBattle(worldState) {
         pos(15, 50)
     ])
 
-    tween(playerMonHealthBox.pos.x, 750, 0.3, (val) => playerMonHealthBox.pos.x = val, easings.easeInSine)
+    tween(playerMonHealthBox.pos.x, 1000, 0.3, (val) => playerMonHealthBox.pos.x = val, easings.easeInSine)
 
     const enemyMonHealthBox = add([
         rect(400, 100),
@@ -542,18 +577,18 @@ function setBattle(worldState) {
         pos(15, 50)
     ])
 
-    tween(enemyMonHealthBox.pos.x, 100, 0.3, (val) => enemyMonHealthBox.pos.x = val, easings.easeInSine)
+    tween(enemyMonHealthBox.pos.x, 500, 0.3, (val) => enemyMonHealthBox.pos.x = val, easings.easeInSine)
 
     const box = add([
-        rect(978, 100),
+        rect(1903, 250),
         outline(4),
-        pos(0, 618)
+        pos(0, 740)
     ])
 
     const content = box.add([
-        text('RAYQUAZA is ready to battle!', { size: 30}),
+        text('RAYQUAZA est prêt à se battre!', { size: 42}),
         color(10,10,10),
-        pos(20,20)
+        pos(50,110)
     ])
 
     function reduceHealth(healthBar, damageDealt) {
@@ -586,13 +621,13 @@ function setBattle(worldState) {
         if (playerMon.fainted || enemyMon.fainted) return
 
         if (phase === 'player-selection') {
-            content.text = '> Tackle'
+            content.text = '> Charge'
             phase = 'player-turn'
             return
         }
 
         if (phase === 'enemy-turn') {
-            content.text = worldState.enemyName.toUpperCase() + ' attacks!'
+            content.text = worldState.enemyName.toUpperCase() + ' attaque!'
             const damageDealt = Math.random() * 230
 
             if (damageDealt > 150) {
