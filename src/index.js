@@ -21,12 +21,13 @@ go('world')
 
 
 function loadAssets(){
-    loadSprite('dracaufeu', './img/charizard.png')
-    loadSprite('florizarre', './img/venusaur.png')
-    loadSprite('tortank', './img/blastoise.png')
-    loadSprite('mewtwo', './img/mewtwo.png')
+    loadSprite('maison', "./img/maison.png")
+    loadSprite('zekrom', './img/zekrom.png')
+    loadSprite('arceus', './img/arceus.png')
+    loadSprite('kyurem', './img/kyurem.png')
+    loadSprite('giratina', './img/giratina.png')
     loadSprite('rayquaza', './img/rayquaza.png')
-    loadSpriteAtlas('./img/coucou.png', {
+    loadSpriteAtlas('./img/trainer.png', {
         'player-down': { x: 0, y: 0, width: 128, height: 48, sliceX: 4, sliceY: 1,
             anims: { 'walk': { from: 0, to: 3, speed: 5 }}
         },
@@ -37,11 +38,11 @@ function loadAssets(){
             anims: { 'walk': { from: 0, to: 3, speed: 5 }}
         },
     })
-    loadSpriteAtlas('./img/npc.png', {
-        'npc': { x: 0, y: 70, width: 60, height: 70 },
-    })
-    loadSprite('battle-background', './img/battle.png')
-    loadSpriteAtlas('./img/test.png', {
+    loadSprite('npc', './img/prof.png')
+    loadSprite('battle-background', './img/battlebg.png')
+    loadSprite('battleplayerbase', './img/playerbase.png')
+    loadSprite('battleenemybase', './img/enemybase.png')
+    loadSpriteAtlas('./img/tiles.png', {
         'tile': { x: 0, y: 0, width: 416, height: 224, sliceX: 13, sliceY: 7,
             anims: {
                 'grass': 0,
@@ -114,25 +115,32 @@ function setWorld(worldState) {
 
     const map = [
         addLevel([
+            'azazazazazazazazazazazazazazazazazazazazazazazaz',
+            'qsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqs',
+            'azazazazazazazazazazazazazazazazazazazazazazazaz',
+            'qsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqs',
+            'azazazazazazazazazazazazazazazazazazazazazazazaz',
+            'qsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqs',
+            'azazazazwxwxwxwxwxwxwxwxwxwxwxwxwxwxwxwxazazazaz',
             'qsqsqsqs1111111111111111rty1111111111111qsqsqsqs',
-            'azazazaz1111111111111111fgh1111111111111azazazaz',
-            'qsqsqsqs1111111111111111fgh1111111111111qsqsqsqs',
-            'azazazaz1111111111111111fgh1111111111111azazazaz',
-            'qsqsqsqs1111111111111111fgh1111111111111qsqsqsqs',
-            'azazazaz111111rtttttttttxgh1111111111111azazazaz',
-            'qsqsqsqs111111fgggggggggggh1111111111111qsqsqsqs',
-            'azazazaz111111fgcbbbbbbbbbn1111111111111azazazaz',
-            'qsqsqsqs111111fgh11111111111111111111111qsqsqsqs',
+            'azazazaz1000000000000001fgh1111111111111azazazaz',
+            'qsqsqsqs1000000000000001fgh1111111111111qsqsqsqs',
+            'azazazaz1000000000000011fgh1110000000001azazazaz',
+            'qsqsqsqs1000011111111111fgh1000000000001qsqsqsqs',
+            'azazazaz100001rttttttttt3gh1000000000001azazazaz',
+            'qsqsqsqs100001fgggggggggggh1000000000001qsqsqsqs',
+            'azazazaz100011fgcbbbbbbbbbn1000000000001azazazaz',
+            'qsqsqsqs100111fgh11111111111111111111111qsqsqsqs',
             'azazazaz111111fgh11111111111111111111111azazazaz',
             'qsqsqsqs111111fgh11111111111111111111111qsqsqsqs',
             'azazazaz111111fgdttttttttttttttttttttty1azazazaz',
             'qsqsqsqs111111fgggggggggggggggggggggggh1qsqsqsqs',
             'azazazaz111111vbbbbbbbegcbbbbbbbbbbbbbn1azazazaz',
-            'qsqsqsqs11111111111111fgh111111111111111qsqsqsqs',
-            'azazazaz11111111111111fgh1AZZZE111111111azazazaz',
-            'qsqsqsqs11111111111111fgh1QSSSD111111111qsqsqsqs',
-            'azazazaz11111111111111fgh1QSSSD111111111azazazaz',
-            'qsqsqsqs11111111111111fgh1WXXXC111111111qsqsqsqs',
+            'qsqsqsqs10000111111111fgh111111111111111qsqsqsqs',
+            'azazazaz10000000000001fgh1AZZZE111000001azazazaz',
+            'qsqsqsqs10000000000001fgh1QSSSD100000001qsqsqsqs',
+            'azazazaz10000000000001fgh1QSSSD100000001azazazaz',
+            'qsqsqsqs10000000000001fgh1WXXXC100000001qsqsqsqs',
             'azazazaz11111111111111vbn111111111111111azazazaz',
             'qsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqs',
             'azazazazazazazazazazazazazazazazazazazazazazazaz',
@@ -146,6 +154,8 @@ function setWorld(worldState) {
                 'z': () => makeTile('r-tree-full-tr'),
                 'q': () => makeTile('r-tree-full-ml'),
                 's': () => makeTile('r-tree-full-mr'),
+                'w': () => makeTile('r-tree-full-bl'),
+                'x': () => makeTile('r-tree-full-br'),
                 'r': () => makeTile('dirt-tl'),
                 't': () => makeTile('dirt-tm'),
                 'y': () => makeTile('dirt-tr'),
@@ -158,7 +168,7 @@ function setWorld(worldState) {
                 'e': () => makeTile('turn-left-from-down'),
                 'c': () => makeTile('turn-right-from-down'),
                 'd': () => makeTile('turn-up-from-right'),
-                'x': () => makeTile('turn-up-from-left'),
+                '3': () => makeTile('turn-up-from-left'),
                 'A': () => makeTile('water-tl'),
                 'Z': () => makeTile('water-tm'),
                 'E': () => makeTile('water-tr'),
@@ -185,6 +195,13 @@ function setWorld(worldState) {
             '                                                ',
             '                                                ',
             '                                                ',
+            '                                l               ',
+            '                                                ',
+            '                                                ',
+            '                                                ',
+            '                                                ',
+            '                                                ',
+            '                                                ',
             '                                                ',
             '                                                ',
             '                                                ',
@@ -197,6 +214,7 @@ function setWorld(worldState) {
             tileWidth: 32,
             tileHeight: 32,
             tiles: {
+                'l': () => [sprite('maison'),area({shape: new Rect(vec2(0, 0), 160, 100)}), body({isStatic: true})],
                 '8': () => makeTile('tree-empty-tr', 100),
                 '9': () => makeTile('tree-empty-tl', 100),
             },
@@ -207,6 +225,13 @@ function setWorld(worldState) {
             '                                                ',
             '                                                ',
             '                                                ',
+            '                                                ',
+            '                                                ',
+            '       pppppppppppppppppppppppppppppppppp       ',
+            '       p                                p       ',
+            '       p                                p       ',
+            '       p                                p       ',
+            '       p                                p       ',
             '       p                                p       ',
             '       p                                p       ',
             '       p                                p       ',
@@ -223,14 +248,14 @@ function setWorld(worldState) {
             '       p                  ooooo         p       ',
             '       p                  ooooo         p       ',
             '       p                                p       ',
-            '        pppppppppppppppppppppppppppppppp        ',
+            '       pppppppppppppppppppppppppppppppppp       ',
             '                                                ',
         ], {
             tileWidth: 32,
             tileHeight: 32,
             tiles: {
                 'p': () => [
-                    area({shape: new Rect(vec2(0), 32, 32)}),
+                    area({shape: new Rect(vec2(0, -25), 32, 32)}),
                     body({isStatic: true})
                 ],
                 'o': () => [
@@ -252,13 +277,12 @@ function setWorld(worldState) {
         }
     }
 
-    add([sprite('dracaufeu'), area(), body({isStatic: true}), pos(100,700), scale(1), 'dracaufeu'])
-    add([sprite('florizarre'), area(), body({isStatic: true}), pos(400,300), scale(1), 'florizarre'])
-    const tortankSprite = add([sprite('tortank'), area(), body({isStatic: true}), pos(100,100), scale(1), 'tortank'])
-    tortankSprite.flipX = true
-    add([sprite('mewtwo'), area(), body({isStatic: true}), pos(900,570), scale(1), 'mewtwo'])
+    add([sprite('giratina'), area(), body({isStatic: true}), pos(1050,350), scale(1), 'giratina'])
+    add([sprite('arceus'), area(), body({isStatic: true}), pos(320,320), scale(1), 'arceus'])
+    add([sprite('zekrom'), area(), body({isStatic: true}), pos(400,720), scale(1), 'zekrom'])
+    add([sprite('kyurem'), area(), body({isStatic: true}), pos(1100,720), scale(1), 'kyurem'])
 
-    add([ sprite('npc'), scale(1), pos(600,690), area(), body({isStatic: true}), 'npc'])
+    add([ sprite('npc'), scale(1), pos(800,220), area({shape: new Rect(vec2(0, -24), 32, 48)}), body({isStatic: true}), 'npc'])
 
 
     const player = add([
@@ -360,17 +384,17 @@ function setWorld(worldState) {
         player.isInDialogue = true
         const dialogueBoxFixedContainer = add([fixed()])
         const dialogueBox = dialogueBoxFixedContainer.add([
-            rect(1000, 200),
+            rect(800, 150),
             outline(5),
-            pos(150, 500),
+            pos(100, 550),
             fixed()
         ])
-        const dialogue = "Defeat all monsters on this island and you'll become the champion!"
+        const dialogue = "Il te faut battre les 4 pekomon de cet endroit pour être le champion!"
         const content = dialogueBox.add([
             text('',
                 {
-                    size: 42,
-                    width: 900,
+                    size: 30,
+                    width: 700,
                     lineSpacing: 15,
                 }),
             color(10,10,10),
@@ -381,7 +405,7 @@ function setWorld(worldState) {
         if (worldState.faintedMons < 4) {
             content.text = dialogue
         } else {
-            content.text = "You're the champion!"
+            content.text = "TU ES LE CHAMPION !"
         }
 
         onUpdate(() => {
@@ -410,17 +434,24 @@ function setWorld(worldState) {
 
 
 
-    onCollideWithPlayer('dracaufeu', player, worldState)
-    onCollideWithPlayer('florizarre', player, worldState)
-    onCollideWithPlayer('tortank', player, worldState)
-    onCollideWithPlayer('mewtwo', player, worldState)
+    onCollideWithPlayer('giratina', player, worldState)
+    onCollideWithPlayer('arceus', player, worldState)
+    onCollideWithPlayer('zekrom', player, worldState)
+    onCollideWithPlayer('kyurem', player, worldState)
 }
 
 function setBattle(worldState) {
     add([
         sprite('battle-background'),
-        scale(5),
+        scale(2.5),
         pos(0,0)
+    ])
+
+    add([
+        sprite('battleplayerbase'),
+        scale(1),
+        pos(0, 500)
+
     ])
 
     const enemyMon = add([
@@ -514,13 +545,13 @@ function setBattle(worldState) {
     tween(enemyMonHealthBox.pos.x, 100, 0.3, (val) => enemyMonHealthBox.pos.x = val, easings.easeInSine)
 
     const box = add([
-        rect(1300, 300),
+        rect(978, 100),
         outline(4),
-        pos(-2, 530)
+        pos(0, 618)
     ])
 
     const content = box.add([
-        text('RAYQUAZA is ready to battle!', { size: 42}),
+        text('RAYQUAZA is ready to battle!', { size: 30}),
         color(10,10,10),
         pos(20,20)
     ])
@@ -565,7 +596,7 @@ function setBattle(worldState) {
             const damageDealt = Math.random() * 230
 
             if (damageDealt > 150) {
-                content.text = "It's a critical hit!"
+                content.text = "COUP CRITIQUE!"
             }
 
             reduceHealth(playerMonHealthBar, damageDealt)
@@ -579,9 +610,9 @@ function setBattle(worldState) {
             const damageDealt = Math.random() * 230
 
             if (damageDealt > 150) {
-                content.text = "It's a critical hit!"
+                content.text = "COUP CRITIQUE!"
             } else {
-                content.text = 'RAYQUAZA used tackle.'
+                content.text = 'RAYQUAZA utilise charge.'
             }
 
             reduceHealth(enemyMonHealthBar, damageDealt)
@@ -618,10 +649,10 @@ function setBattle(worldState) {
 
         if (enemyMonHealthBar.width < 0 && !enemyMon.fainted) {
             makeMonDrop(enemyMon)
-            content.text = worldState.enemyName.toUpperCase() + ' fainted!'
+            content.text = worldState.enemyName.toUpperCase() + ' est K.O!'
             enemyMon.fainted = true
             setTimeout(() => {
-                content.text = 'RAYQUAZA won the battle!'
+                content.text = 'RAYQUAZA a gagné !'
             }, 1000)
             setTimeout(() => {
                 worldState.faintedMons.push(worldState.enemyName)
@@ -631,13 +662,13 @@ function setBattle(worldState) {
 
         if (playerMonHealthBar.width < 0 && !playerMon.fainted) {
             makeMonDrop(playerMon)
-            content.text = 'RAYQUAZA fainted!'
+            content.text = 'RAYQUAZA est K.O!'
             playerMon.fainted = true
             setTimeout(() => {
-                content.text = 'You rush to get RAYQUAZA healed!'
+                content.text = 'Vous foncez pour aller soigner RAYQUAZA!'
             }, 1000)
             setTimeout(() => {
-                worldState.playerPos = vec2(500,700)
+                worldState.playerPos = vec2(800,250)
                 go('world', worldState)
             }, 2000)
         }
