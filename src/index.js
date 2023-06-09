@@ -22,12 +22,16 @@ function loadAssets(){
     loadSprite('maison', "./img/maison.png")
     loadSprite('zekromwild', './img/zekromwild.png')
     loadSprite('zekrom', './img/zekrom.png')
+    loadSprite('zekrom shiny', './img/zekromshiny.png')
     loadSprite('arceuswild', './img/arceuswild.png')
     loadSprite('arceus', './img/arceus.png')
+    loadSprite('arceus shiny', './img/arceusshiny.png')
     loadSprite('kyuremwild', './img/kyuremwild.png')
     loadSprite('kyurem', './img/kyurem.png')
+    loadSprite('kyurem shiny', './img/kyuremshiny.png')
     loadSprite('giratinawild', './img/giratinawild.png')
     loadSprite('giratina', './img/giratina.png')
+    loadSprite('giratina shiny', './img/giratinashiny.png')
     loadSprite('rayquaza', './img/rayquaza.png')
     loadSpriteAtlas('./img/trainer.png', {
         'player-down': { x: 0, y: 0, width: 128, height: 48, sliceX: 4, sliceY: 1,
@@ -48,6 +52,9 @@ function loadAssets(){
         'tile': { x: 0, y: 0, width: 416, height: 224, sliceX: 13, sliceY: 7,
             anims: {
                 'grass': 0,
+                'grassv2': 39,
+                'grassv3': 40,
+                'grassv4': 41,
                 'tall-grass': 1,
                 'dirt-tl': 2,
                 'dirt-tm': 3,
@@ -91,11 +98,16 @@ function loadAssets(){
                 'turn-up-from-right': 81,
                 'turn-up-from-left': 83,
                 'turn-left-from-down': 57,
-                'turn-right-from-down': 55
+                'turn-right-from-down': 55,
+                'flower': 26,
+                'bush': 27,
+                'pokeball': 14
             }
         },
         'top-tree-left' : {x: 352, y: 128, width: 32, height: 32},
-        'top-tree-right' : {x: 384, y: 128, width: 32, height:32}
+        'top-tree-right' : {x: 384, y: 128, width: 32, height:32},
+        'sign': {x: 0, y: 32, width: 32, height: 32},
+        'pokeball': {x: 32, y: 32, width: 32, height: 32},
     })
 }
 
@@ -126,26 +138,26 @@ function setWorld(worldState) {
             'azazazazazazazazazazazazazazazazazazazazazazazaz',
             'qsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqs',
             'azazazazwxwxwxwxwxwxwxwxwxwxwxwxwxwxwxwxazazazaz',
-            'qsqsqsqs1111111111111111rty1111111111111qsqsqsqs',
-            'azazazaz1000000000000001fgh1111111111111azazazaz',
-            'qsqsqsqs1000000000000001fgh1111111111111qsqsqsqs',
-            'azazazaz1000000000000011fgh1110000000001azazazaz',
-            'qsqsqsqs1000011111111111fgh1000000000001qsqsqsqs',
-            'azazazaz100001rttttttttt3gh1000000000001azazazaz',
-            'qsqsqsqs100001fgggggggggggh1000000000001qsqsqsqs',
-            'azazazaz100011fgcbbbbbbbbbn1000000000001azazazaz',
-            'qsqsqsqs100111fgh11111111111111111111111qsqsqsqs',
-            'azazazaz111111fgh11111111111111111111111azazazaz',
-            'qsqsqsqs111111fgh11111111111111111111111qsqsqsqs',
-            'azazazaz111111fgdttttttttttttttttttttty1azazazaz',
-            'qsqsqsqs111111fgggggggggggggggggggggggh1qsqsqsqs',
-            'azazazaz111111vbbbbbbbegcbbbbbbbbbbbbbn1azazazaz',
-            'qsqsqsqs10000111111111fgh111111111111111qsqsqsqs',
-            'azazazaz10000000000001fgh1AZZZE111000001azazazaz',
-            'qsqsqsqs10000000000001fgh1QSSSD100000001qsqsqsqs',
-            'azazazaz10000000000001fgh1QSSSD100000001azazazaz',
-            'qsqsqsqs10000000000001fgh1WXXXC100000001qsqsqsqs',
-            'azazazaz11111111111111vbn111111111111111azazazaz',
+            'qsqsqsqs3422314324314324rty1243241114324qsqsqsqs',
+            'azazazaz3000000000000001fgh4123423231412azazazaz',
+            'qsqsqsqs1000000000000003fgh3423214423142qsqsqsqs',
+            'azazazaz4000000000000024fgh1420000000001azazazaz',
+            'qsqsqsqs4000023421432132fgh2000000000001qsqsqsqs',
+            'azazazaz100003rttttttttt<gh4000000000004azazazaz',
+            'qsqsqsqs200001fgggggggggggh1000000000002qsqsqsqs',
+            'azazazaz300043fgcbbbbbbbbbn2000000000003azazazaz',
+            'qsqsqsqs132423fgh21432431424321324332323qsqsqsqs',
+            'azazazaz412314fgh14213423113214344213213azazazaz',
+            'qsqsqsqs124214fgh12432312223144212134343qsqsqsqs',
+            'azazazaz334113fgdttttttttttttttttttttty1azazazaz',
+            'qsqsqsqs231241fgggggggggggggggggggggggh1qsqsqsqs',
+            'azazazaz423122vbbbbbbbegcbbbbbbbbbbbbbn1azazazaz',
+            'qsqsqsqs10000114231431fgh423132142314231qsqsqsqs',
+            'azazazaz30000000000002fgh3AZZZE142000001azazazaz',
+            'qsqsqsqs10000000000001fgh2QSSSD400000002qsqsqsqs',
+            'azazazaz10000000000004fgh3QSSSD200000003azazazaz',
+            'qsqsqsqs40000000000001fgh4WXXXC300000001qsqsqsqs',
+            'azazazaz23111411132111vbn132432421314231azazazaz',
             'qsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqsqs',
             'azazazazazazazazazazazazazazazazazazazazazazazaz',
         ], {
@@ -154,6 +166,9 @@ function setWorld(worldState) {
             tiles: {
                 '0': () => makeTile('tall-grass'),
                 '1': () => makeTile('grass'),
+                '2': () => makeTile('grassv2'),
+                '3': () => makeTile('grassv3'),
+                '4': () => makeTile('grassv4'),
                 'a': () => makeTile('r-tree-full-tl'),
                 'z': () => makeTile('r-tree-full-tr'),
                 'q': () => makeTile('r-tree-full-ml'),
@@ -172,7 +187,7 @@ function setWorld(worldState) {
                 'e': () => makeTile('turn-left-from-down'),
                 'c': () => makeTile('turn-right-from-down'),
                 'd': () => makeTile('turn-up-from-right'),
-                '3': () => makeTile('turn-up-from-left'),
+                '<': () => makeTile('turn-up-from-left'),
                 'A': () => makeTile('water-tl'),
                 'Z': () => makeTile('water-tm'),
                 'E': () => makeTile('water-tr'),
@@ -200,11 +215,11 @@ function setWorld(worldState) {
             '                                                ',
             '                                                ',
             '                                l               ',
-            '                                                ',
-            '                                                ',
-            '                                                ',
-            '                                                ',
-            '                                                ',
+            '        BBBBB     KLLLLLLM                      ',
+            '        B         FFFFFFFFFFFFF                 ',
+            '        B BBB     KLLLLLLLLLLLLM     KLM        ',
+            '        B   B                                   ',
+            '        BBBBB                                   ',
             '                                                ',
             '                                                ',
             '                                                ',
@@ -219,8 +234,12 @@ function setWorld(worldState) {
             tileHeight: 32,
             tiles: {
                 'l': () => [sprite('maison'),area({shape: new Rect(vec2(0, 0), 160, 100)}), body({isStatic: true})],
-                '8': () => makeTile('tree-empty-tr', 100),
-                '9': () => makeTile('tree-empty-tl', 100),
+                'K': () => makeTile('fence-l'),
+                'L': () => makeTile('fence-m'),
+                'M': () => makeTile('fence-r'),
+                'F': () => makeTile('flower'),
+                'B': () => makeTile('bush'),
+                'P': () => makeTile('pokeball'),
             },
         }),
 
@@ -240,11 +259,11 @@ function setWorld(worldState) {
             '       p                                p       ',
             '       p                                p       ',
             '       p                                p       ',
-            '       p                                p       ',
-            '       p                                p       ',
-            '       p                                p       ',
-            '       p                                p       ',
-            '       p                                p       ',
+            '       psssss     ssssssss              p       ',
+            '       ps                               p       ',
+            '       ps sss     ssssssssssssss     sssp       ',
+            '       ps   s                           p       ',
+            '       psssss                           p       ',
             '       p                                p       ',
             '       p                                p       ',
             '       p                  ooooo         p       ',
@@ -265,6 +284,10 @@ function setWorld(worldState) {
                 'o': () => [
                     area({shape: new Rect(vec2(0, -15), 26, 32)}),
                     body({isStatic: true})
+                ],
+                's': () => [
+                    area({shape: new Rect(vec2(0, -17), 32, 22)}),
+                    body({isStatic: true})
                 ]
             }
         })
@@ -280,11 +303,27 @@ function setWorld(worldState) {
             }
         }
     }
+    const shinyRandom = Math.floor(Math.random() * 10)
 
-    add([sprite('giratinawild'), area(), body({isStatic: true}), pos(1050,350), scale(1), 'giratina'])
-    add([sprite('arceuswild'), area(), body({isStatic: true}), pos(320,320), scale(1), 'arceus'])
-    add([sprite('zekromwild'), area(), body({isStatic: true}), pos(400,720), scale(1), 'zekrom'])
-    add([sprite('kyuremwild'), area(), body({isStatic: true}), pos(1100,720), scale(1), 'kyurem'])
+    let arceusRand
+    let kyuremRand
+    let zekromRand
+    let giratinaRand
+    if (shinyRandom === 6){
+        arceusRand = 'arceus shiny'
+        kyuremRand = 'kyurem shiny'
+        zekromRand = 'zekrom shiny'
+        giratinaRand = 'giratina shiny'
+    }else{
+        arceusRand = 'arceus'
+        kyuremRand = 'kyurem'
+        zekromRand = 'zekrom'
+        giratinaRand = 'giratina'
+    }
+    add([sprite('giratinawild'), area(), body({isStatic: true}), pos(1050,350), scale(1), giratinaRand])
+    add([sprite('arceuswild'), area(), body({isStatic: true}), pos(320,320), scale(1), arceusRand])
+    add([sprite('zekromwild'), area(), body({isStatic: true}), pos(400,720), scale(1), zekromRand])
+    add([sprite('kyuremwild'), area(), body({isStatic: true}), pos(1100,720), scale(1), kyuremRand])
     let Xlefttrees = 255
     for (let i = 0; i < 16; i++) {
         add([sprite('top-tree-left'), pos(Xlefttrees, 832), scale(1), z(10)])
@@ -297,6 +336,8 @@ function setWorld(worldState) {
     }
 
     add([ sprite('npc'), scale(1), pos(800,220), area({shape: new Rect(vec2(0, -24), 32, 48)}), body({isStatic: true}), 'npc'])
+    add([ sprite('sign'), scale(1), pos(800,730), area({shape: new Rect(vec2(0, -14), 32, 32)}), body({isStatic: true}), 'sign'])
+    add([ sprite('pokeball'), scale(1), pos(352,576), area({shape: new Rect(vec2(0), 32, 32)}), body({isStatic: true}), 'pokeball'])
 
 
     const player = add([
@@ -394,6 +435,63 @@ function setWorld(worldState) {
         destroy(get(faintedMon)[0])
     }
 
+    player.onCollide('sign', ()=>{
+        player.isInDialogue = true
+        const dialogueBoxFixedContainerSign1 = add([fixed(), z(100)])
+        const dialogueBoxSign1 = dialogueBoxFixedContainerSign1.add([
+            rect(1300, 150),
+            outline(4),
+            pos(300, 800),
+            fixed()
+        ])
+        dialogueBoxSign1.add([
+            text('Bienvenue sur pekomon! Utiliser espace pour attaquer ou pour quitter une conversation',
+                {
+                    size: 42,
+                    width: 1200,
+                    lineSpacing: 15,
+                }),
+            color(10,10,10),
+            pos(50,30),
+            fixed()
+        ])
+
+        onUpdate(() => {
+            if (isKeyDown('space')) {
+                destroy(dialogueBoxSign1)
+                player.isInDialogue = false
+            }
+        })
+    })
+    player.onCollide('pokeball', ()=>{
+        player.isInDialogue = true
+        const dialogueBoxFixedContainerSign1 = add([fixed(), z(100)])
+        const dialogueBoxSign1 = dialogueBoxFixedContainerSign1.add([
+            rect(1300, 150),
+            outline(4),
+            pos(300, 800),
+            fixed()
+        ])
+        dialogueBoxSign1.add([
+            text("C'est une pokeball! Pour savoir ce qu'il faut faire allez voir le professeur en haut de la route",
+                {
+                    size: 35,
+                    width: 1200,
+                    lineSpacing: 15,
+                }),
+            color(10,10,10),
+            pos(50,30),
+            fixed()
+        ])
+
+        onUpdate(() => {
+            if (isKeyDown('space')) {
+                destroy(dialogueBoxSign1)
+                player.isInDialogue = false
+            }
+        })
+    })
+
     player.onCollide('npc', () => {
         player.isInDialogue = true
         const dialogueBoxFixedContainer = add([fixed()])
@@ -448,11 +546,12 @@ function setWorld(worldState) {
 
 
 
-    onCollideWithPlayer('giratina', player, worldState)
-    onCollideWithPlayer('arceus', player, worldState)
-    onCollideWithPlayer('zekrom', player, worldState)
-    onCollideWithPlayer('kyurem', player, worldState)
+    onCollideWithPlayer(giratinaRand, player, worldState)
+    onCollideWithPlayer(arceusRand, player, worldState)
+    onCollideWithPlayer(zekromRand, player, worldState)
+    onCollideWithPlayer(kyuremRand, player, worldState)
 }
+
 
 function setBattle(worldState) {
     add([
@@ -477,14 +576,14 @@ function setBattle(worldState) {
     let myX = 1320
     let myY = 50
     let myScale = 2
-    if (worldState.enemyName === 'zekrom'){
+    if (worldState.enemyName === 'zekrom' || 'zekrom shiny'){
         myScale = 1.8
         myX = 1300
         myY = 40
-    }else if (worldState.enemyName === 'kyurem'){
+    }else if (worldState.enemyName === 'kyurem' || 'kyurem shiny'){
         myX = 1240
         myY = 60
-    }else if (worldState.enemyName === 'giratina'){
+    }else if (worldState.enemyName === 'giratina' || 'giratina shiny'){
         myX = 1300
     }
     const enemyMon = add([
